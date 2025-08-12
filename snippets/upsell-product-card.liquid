@@ -1,0 +1,166 @@
+{%- liquid
+  assign block_settings = block.settings
+  assign product_card_gap_value = block_settings.product_card_gap
+  assign onboarding = false
+  if product.id == empty
+    assign onboarding = true
+  endif
+-%}
+
+<upsell-product-card
+  class="product-card"
+  data-product-id="{{ product.id }}"
+  data-product-variants-size="{{ product.variants.size }}"
+  id="upsell-product-card-{{ block.id }}"
+  {{ block.shopify_attributes }}
+>
+  <div
+    class="
+      product-card__content
+      layout-panel-flex
+      layout-panel-flex--column
+      product-grid__card
+      spacing-style
+      border-style
+      gap-style
+      {% if block_settings.inherit_color_scheme == false %} color-{{ block_settings.color_scheme }}{% endif %}
+    "
+    style="
+      {% render 'border-override', settings: block_settings %}
+      {% render 'layout-panel-style', settings: block_settings %}
+      {% render 'spacing-style', settings: block_settings %}
+      {% render 'gap-style', value: product_card_gap_value, name: 'product-card-gap' %}
+    "
+  >
+    <!-- Product Image -->
+    <div class="product-card__image">
+      {% if product.featured_media %}
+        <img
+          src="{{ product.featured_media.preview_image | image_url: width: 400 }}"
+          alt="{{ product.featured_media.alt_text | default: product.title }}"
+          width="400"
+          height="400"
+          loading="lazy"
+          class="product-card__image-img"
+        />
+      {% else %}
+        <div class="product-card__placeholder-image">
+          <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="400" fill="#f4f4f4"/>
+            <path d="M200 150c27.614 0 50 22.386 50 50s-22.386 50-50 50-50-22.386-50-50 22.386-50 50-50z" fill="#ddd"/>
+            <path d="M200 250c-27.614 0-50-22.386-50-50s22.386-50 50-50 50 22.386 50 50-22.386 50-50 50z" fill="#ddd"/>
+          </svg>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-card__info">
+      <h3 class="product-card__title">
+        {% if onboarding %}
+          Product Title
+        {% else %}
+          {{ product.title }}
+        {% endif %}
+      </h3>
+
+      {% if product.selected_or_first_available_variant.sku != blank %}
+        <p class="product-card__sku">
+          SKU: {{ product.selected_or_first_available_variant.sku }}
+        </p>
+      {% endif %}
+
+      <div class="product-card__price">
+        {% render 'price', product: product %}
+      </div>
+
+      <!-- Add to Cart Button -->
+      <button
+        class="button button--primary product-card__add-to-cart"
+        on:click="upsell-product-card/openUpsellModal"
+        {% unless product.available %}disabled{% endunless %}
+      >
+        {% if product.available %}
+          {{ 'actions.add_to_cart' | t }}
+        {% else %}
+          {{ 'products.product.sold_out' | t }}
+        {% endif %}
+      </button>
+    </div>
+  </div>
+</upsell-product-card>
+
+{% stylesheet %}
+  .product-card {
+    width: 100%;
+    height: 100%;
+  }
+
+  .product-card__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-card__image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+  }
+
+  .product-card__image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover .product-card__image-img {
+    transform: scale(1.05);
+  }
+
+  .product-card__placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background-2);
+  }
+
+  .product-card__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    padding: var(--padding-s);
+  }
+
+  .product-card__title {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-medium);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .product-card__sku {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-2);
+    margin: 0;
+  }
+
+  .product-card__price {
+    margin-top: auto;
+  }
+
+  .product-card__add-to-cart {
+    width: 100%;
+    margin-top: var(--gap-s);
+  }
+
+  .product-card__add-to-cart:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+{% endstylesheet %}
