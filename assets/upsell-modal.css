@@ -1,0 +1,138 @@
+.upsell-modal {
+  --upsell-modal-gap: 1.5rem;
+  --upsell-modal-border-radius: 8px;
+}
+
+.upsell-modal__dialog {
+  max-width: 600px;
+  max-height: 80vh;
+  width: 90vw;
+  padding: 0;
+  border: none;
+  border-radius: var(--upsell-modal-border-radius);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+.upsell-modal__dialog::backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.upsell-modal__content {
+  padding: var(--upsell-modal-gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--upsell-modal-gap);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.upsell-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.upsell-modal__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.upsell-modal__close {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.upsell-modal__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.upsell-modal__upsell-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.upsell-modal__upsell-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.upsell-modal__upsell-carousel {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.upsell-modal__upsell-item {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.upsell-modal__upsell-item img {
+  object-fit: cover;
+}
+
+.upsell-modal__upsell-item h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.upsell-modal__upsell-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.upsell-modal__subtotal-section {
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.upsell-modal__subtotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.upsell-modal__subtotal-amount {
+  color: var(--color-primary);
+}
+
+.upsell-modal__actions {
+  width: 100%;
+}
+
+.upsell-modal__confirm {
+  width: 100%;
+  transition: opacity 0.2s ease;
+}
+
+.upsell-modal__confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.upsell-product-toggle {
+  margin-top: auto;
+}
+
+.upsell-product-options {
+  margin-top: auto;
+}

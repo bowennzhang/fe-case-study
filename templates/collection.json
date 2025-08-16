@@ -155,6 +155,20 @@
               },
               "blocks": {}
             },
+            "product_sku_PwKLhx": {
+              "type": "product-sku",
+              "name": "Product SKU",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "0.875rem",
+                "color": "var(--color-foreground)"
+              },
+              "blocks": {}
+            },
             "product_title_4nY4eT": {
               "type": "product-title",
               "name": "t:names.product_title",
@@ -205,6 +219,7 @@
           },
           "block_order": [
             "card-gallery",
+            "product_sku_PwKLhx",
             "product_title_4nY4eT",
             "price_EzJzMm"
           ]

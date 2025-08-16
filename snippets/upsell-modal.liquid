@@ -1,0 +1,49 @@
+{% assign modal_id = id | default: 'upsell-modal' %}
+
+<upsell-modal-component id="{{ modal_id }}" class="upsell-modal">
+  <dialog ref="dialog" class="upsell-modal__dialog" aria-labelledby="{{ modal_id }}-title">
+    <div class="upsell-modal__content">
+      <div class="upsell-modal__header">
+        <h2 id="{{ modal_id }}-title" class="upsell-modal__title">Complete Your Purchase</h2>
+        <button
+          ref="closeButton"
+          type="button"
+          class="upsell-modal__close"
+          aria-label="{{ 'actions.close' | t }}"
+          on:click="upsell-modal-component/close"
+        >
+          {{ 'icon-close.svg' | inline_asset_content }}
+        </button>
+      </div>
+
+      <div class="upsell-modal__upsell-section">
+        <h4 class="upsell-modal__upsell-title">You might also like</h4>
+        <div ref="upsellCarousel" class="upsell-modal__upsell-carousel"></div>
+      </div>
+
+      <div class="upsell-modal__subtotal-section">
+        <div class="upsell-modal__subtotal">
+          <span class="upsell-modal__subtotal-label">Subtotal:</span>
+          <span ref="subtotal" class="upsell-modal__subtotal-amount">$0.00</span>
+        </div>
+      </div>
+
+      <div class="upsell-modal__actions">
+        <button
+          ref="confirmButton"
+          type="button"
+          class="button button--primary upsell-modal__confirm"
+          on:click="upsell-modal-component/confirmAddToCart"
+        >
+          Confirm Add to Cart
+        </button>
+      </div>
+    </div>
+  </dialog>
+</upsell-modal-component>
+
+{{ 'upsell-modal.css' | asset_url | stylesheet_tag }}
+
+<script type="module">
+  import '@theme/upsell-collection';
+</script>

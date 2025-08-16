@@ -141,6 +141,35 @@
   >
     {{ children }}
   </div>
+
+  {%- if product.metafields.custom.upsell_products.value != blank -%}
+    <script type="application/json" data-upsell-products-json>
+      {
+        "mainProduct": {
+          "id": {{ product.id | json }},
+          "title": {{ product.title | json }},
+          "price": {{ product.price | divided_by: 100.00 | json }},
+          "image": {{ product.featured_media.preview_image | image_url: width: 400 | json }},
+          "variantId": {{ product.selected_or_first_available_variant.id | json }},
+          "sku": {{ product.selected_or_first_available_variant.sku | json }}
+        },
+        "upsellProducts": [
+          {%- for upsell_product in product.metafields.custom.upsell_products.value -%}
+            {
+              "id": {{ upsell_product.id | json }},
+              "title": {{ upsell_product.title | json }},
+              "price": {{ upsell_product.price | divided_by: 100.00 | json }},
+              "image": {{ upsell_product.featured_media.preview_image | image_url: width: 400 | json }},
+              "variantId": {{ upsell_product.selected_or_first_available_variant.id | json }},
+              "sku": {{ upsell_product.selected_or_first_available_variant.sku | json }},
+              "variantCount": {{ upsell_product.variants.size | json }},
+              "url": {{ upsell_product.url | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      }
+    </script>
+  {%- endif -%}
 </product-card>
 {%- if settings.transition_to_main_product -%}
   </product-card-link>
