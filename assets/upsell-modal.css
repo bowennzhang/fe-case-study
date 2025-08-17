@@ -43,6 +43,14 @@
   font-weight: 600;
 }
 
+@media screen and (max-width: 749px) {
+  .upsell-modal__title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}
+
 .upsell-modal__close {
   cursor: pointer;
   background-color: transparent;
@@ -71,6 +79,15 @@
   gap: 1rem;
   overflow-x: auto;
   padding: 0.5rem 0;
+}
+
+@media screen and (max-width: 749px) {
+  .upsell-modal__upsell-carousel {
+    flex-direction: column;
+    overflow-x: visible;
+    overflow-y: auto;
+    max-height: 60vh;
+  }
 }
 
 .upsell-modal__upsell-item {
